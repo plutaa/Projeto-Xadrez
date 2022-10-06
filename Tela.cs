@@ -14,10 +14,18 @@ namespace xadrex_console
             imprimirPecasCapturadas(partida);
             Console.WriteLine();
             Console.WriteLine("Turno: " + partida.turno);
-            Console.WriteLine("Aguardando jogada: " + partida.jogadorAtual);
-            if (partida.xeque)
+            if (!partida.terminada)
             {
-                Console.WriteLine("XEQUE!");
+                Console.WriteLine("Aguardando jogada: " + partida.jogadorAtual);
+                if (partida.xeque)
+                {
+                    Console.WriteLine("XEQUE!");
+                }
+            }
+            else 
+            {
+                Console.WriteLine("XEQUEMATE!");
+                Console.WriteLine("Vencedor: " + partida.jogadorAtual);
             }
         }
 
@@ -31,7 +39,7 @@ namespace xadrex_console
             ConsoleColor aux = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.Yellow;
             imprimirConjunto(partida.pecasCapturadas(Cor.Preta));
-            Console.ForegroundColor = aux; 
+            Console.ForegroundColor = aux;
             Console.WriteLine();
         }
 
@@ -61,7 +69,7 @@ namespace xadrex_console
         public static void imprimirTabuleiro(Tabuleiro tab, bool[,] posicoePossiveis)
         {
             ConsoleColor fundoOriginal = Console.BackgroundColor;
-            ConsoleColor FundoAlterado = ConsoleColor.DarkGray; 
+            ConsoleColor FundoAlterado = ConsoleColor.DarkGray;
 
             for (int i = 0; i < tab.linhas; i++)
             {
@@ -72,7 +80,7 @@ namespace xadrex_console
                     {
                         Console.BackgroundColor = FundoAlterado;
                     }
-                    else 
+                    else
                     {
                         Console.BackgroundColor = fundoOriginal;
                     }
@@ -81,7 +89,7 @@ namespace xadrex_console
                     Console.BackgroundColor = fundoOriginal;
                 }
                 Console.WriteLine();
-                Console.BackgroundColor = fundoOriginal; 
+                Console.BackgroundColor = fundoOriginal;
             }
             Console.WriteLine("  a b c d e f g h");
         }
@@ -96,24 +104,24 @@ namespace xadrex_console
 
         public static void imprimirPeca(Peca peca)
         {
-            if (peca == null) 
+            if (peca == null)
             {
                 Console.Write("- ");
             }
-            else 
+            else
             {
-            if(peca.cor == Cor.Branca)
-            {
-                Console.Write(peca);
-            }
-            else 
-            {
-                ConsoleColor aux = Console.ForegroundColor;
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.Write(peca);
-                Console.ForegroundColor = aux;
-            }
-            Console.Write(" ");
+                if (peca.cor == Cor.Branca)
+                {
+                    Console.Write(peca);
+                }
+                else
+                {
+                    ConsoleColor aux = Console.ForegroundColor;
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write(peca);
+                    Console.ForegroundColor = aux;
+                }
+                Console.Write(" ");
             }
         }
     }
